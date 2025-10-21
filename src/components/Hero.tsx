@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <section id="inicio" className="relative py-16 md:py-24 bg-gradient-to-r from-secondary to-text-primary text-white">
+    <section id="inicio" className="relative py-16 md:py-24 bg-gradient-to-r from-secondary to-accent-dark text-white">
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center">
         <div className="md:w-1/2 mb-10 md:mb-0">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-wide font-serif">Desde 1996: Tradición Industrial</h1>
@@ -17,9 +17,6 @@ const Hero = () => {
         <div className="md:w-1/2 flex justify-center">
           <div className="relative">
             <img src="/logoMonumental.webp" alt="Logo El Monumental" className="rounded-xl w-64 h-64 md:w-80 md:h-80 object-cover border-4 border-white shadow-lg" />
-            <div className="absolute -bottom-4 -right-4 bg-primary text-white px-6 py-3 rounded-lg font-bold">
-              ¡Nueva Temporada!
-            </div>
           </div>
         </div>
       </div>

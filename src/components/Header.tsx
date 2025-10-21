@@ -34,7 +34,7 @@ const Header = ({ cartItemCount, onCartClick, whatsappLink, onClearCart, hasItem
           <a href="#inicio" className="font-medium hover:text-primary transition-colors">Inicio</a>
           <a href="#empresa" className="font-medium hover:text-primary transition-colors">Empresa</a>
           <a href="#catalogo" className="font-medium hover:text-primary transition-colors">Catálogo</a>
-          <a href="#recetas" className="font-medium hover:text-primary transition-colors">Recetas</a>
+          <a href="#recetas" className="font-medium hover:text-primary transition-colors">Preguntas</a>
           <a href="#contacto" className="font-medium hover:text-primary transition-colors">Contacto</a>
         </nav>
 
