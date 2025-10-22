@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import BannerSlider from './components/BannerSlider';
 import Empresa from './components/Empresa';
 import Catalogo from './components/Catalogo';
 import Recetas from './components/Recetas';
@@ -82,7 +83,8 @@ function App() {
         hasItems={cart.length > 0}
       />
       <main>
-        <Hero />
+  <BannerSlider />
+  <Hero />
         <Empresa />
         <Catalogo addToCart={addToCart} />
         <Recetas />
