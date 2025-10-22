@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const banners = [
-  '/Bannercarnes-monumental.webp',
-  '/Bannercarnes-monumental-minoristas.webp',
+  { src: '/Bannercarnes-monumental.webp', link: '/mayorista', alt: 'Mayorista' },
+  { src: '/Bannercarnes-monumental-minoristas.webp', link: '/minorista', alt: 'Minorista' },
 ];
 
 const BannerSlider = () => {
   const [current, setCurrent] = useState(0);
   const timeoutRef = useRef<number | null>(null);
+  const navigate = useNavigate();
 
   const nextSlide = () => setCurrent((prev) => (prev + 1) % banners.length);
   const prevSlide = () => setCurrent((prev) => (prev - 1 + banners.length) % banners.length);
@@ -18,18 +20,19 @@ const BannerSlider = () => {
       nextSlide();
     }, 4000);
     return () => {
-  if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, [current]);
 
   return (
-  <div className="relative w-full mt-4 mb-8 overflow-hidden shadow-lg">
-      {banners.map((src, idx) => (
+    <div className="relative w-full mt-4 mb-8 overflow-hidden shadow-lg">
+      {banners.map((banner, idx) => (
         <img
-          key={src}
-          src={src}
-          alt={`Banner ${idx + 1}`}
-          className={`w-full h-[28vw] min-h-[140px] max-h-[320px] object-cover transition-opacity duration-700 ${idx === current ? 'opacity-100' : 'opacity-0 absolute top-0 left-0'}`}
+          key={banner.src}
+          src={banner.src}
+          alt={banner.alt}
+          onClick={() => navigate(banner.link)}
+          className={`w-full h-[28vw] min-h-[140px] max-h-[320px] object-cover transition-opacity duration-700 cursor-pointer ${idx === current ? 'opacity-100' : 'opacity-0 absolute top-0 left-0'}`}
           style={{ zIndex: idx === current ? 1 : 0 }}
         />
       ))}

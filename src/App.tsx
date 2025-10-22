@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import BannerSlider from './components/BannerSlider';
@@ -9,12 +10,29 @@ import Contacto from './components/Contacto';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import CartModal from './components/CartModal';
+import Mayorista from './components/Mayorista';
+import Minorista from './components/Minorista';
+import TikTokSection from './components/TikTokSection';
 
 import type { Product } from './data';
 
 function App() {
   const [cart, setCart] = useState<Product[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const section = params.get('section');
+    if (section) {
+      setTimeout(() => {
+        const el = document.getElementById(section);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100); // Espera a que el DOM esté listo
+    }
+  }, [location]);
 
   const totalItemsInCart = useMemo(() => {
     // Esto agrupa los productos y suma sus cantidades para mostrar el número correcto en el ícono del carrito.
@@ -75,32 +93,41 @@ function App() {
 
   return (
     <div className="bg-background text-text-primary font-sans">
-      <Header
-        cartItemCount={totalItemsInCart}
-        onCartClick={() => setIsCartOpen(true)}
-        whatsappLink={whatsappLink}
-        onClearCart={onClearCart}
-        hasItems={cart.length > 0}
-      />
-      <main>
-  <BannerSlider />
-  <Hero />
-        <Empresa />
-        <Catalogo addToCart={addToCart} />
-        <Recetas />
-        <Contacto />
-      </main>
-      <WhatsAppButton />
-      <Footer />
-      <CartModal
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cart}
-        onUpdateQuantity={onUpdateQuantity}
-        onRemoveItem={onRemoveItem}
-        whatsappNumber="5491131078008" // Reemplaza con tu número
-        onClearCart={onClearCart}
-      />
+      <Routes>
+        <Route path="/mayorista" element={<Mayorista />} />
+        <Route path="/minorista" element={<Minorista />} />
+        <Route path="/" element={
+          <>
+            <Header
+              cartItemCount={totalItemsInCart}
+              onCartClick={() => setIsCartOpen(true)}
+              whatsappLink={whatsappLink}
+              onClearCart={onClearCart}
+              hasItems={cart.length > 0}
+            />
+            <main>
+              <BannerSlider />
+              <Hero />
+              <Empresa />
+              <Catalogo addToCart={addToCart} />
+              <TikTokSection />
+              <Recetas />
+              <Contacto />
+            </main>
+            <WhatsAppButton />
+            <Footer />
+            <CartModal
+              isOpen={isCartOpen}
+              onClose={() => setIsCartOpen(false)}
+              cartItems={cart}
+              onUpdateQuantity={onUpdateQuantity}
+              onRemoveItem={onRemoveItem}
+              whatsappNumber="5491131078008"
+              onClearCart={onClearCart}
+            />
+          </>
+        } />
+      </Routes>
     </div>
   );
 }

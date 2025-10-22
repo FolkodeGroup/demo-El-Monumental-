@@ -1,3 +1,4 @@
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 interface HeaderProps {
@@ -10,15 +11,27 @@ interface HeaderProps {
 
 const Header = ({ cartItemCount, onCartClick, whatsappLink, onClearCart, hasItems }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleConsultaClick = (e: React.MouseEvent) => {
     if (hasItems) {
-      // Previene la navegación por defecto del <a> si hay items, para usar window.open
       e.preventDefault();
       window.open(whatsappLink, '_blank');
       onClearCart();
     }
-    // Si no hay items, el <a> funcionará normalmente.
+  };
+
+  // Navegación a sección de la home
+  const goToSection = (section: string) => {
+    if (location.pathname !== '/') {
+      navigate(`/?section=${section}`);
+    } else {
+      const el = document.getElementById(section);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   };
 
   return (
@@ -31,11 +44,11 @@ const Header = ({ cartItemCount, onCartClick, whatsappLink, onClearCart, hasItem
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
-          <a href="#inicio" className="font-medium hover:text-primary transition-colors">Inicio</a>
-          <a href="#empresa" className="font-medium hover:text-primary transition-colors">Empresa</a>
-          <a href="#catalogo" className="font-medium hover:text-primary transition-colors">Catálogo</a>
-          <a href="#recetas" className="font-medium hover:text-primary transition-colors">Preguntas</a>
-          <a href="#contacto" className="font-medium hover:text-primary transition-colors">Contacto</a>
+          <button type="button" onClick={() => goToSection('inicio')} className="font-medium hover:text-primary transition-colors bg-transparent">Inicio</button>
+          <button type="button" onClick={() => goToSection('empresa')} className="font-medium hover:text-primary transition-colors bg-transparent">Empresa</button>
+          <button type="button" onClick={() => goToSection('catalogo')} className="font-medium hover:text-primary transition-colors bg-transparent">Catálogo</button>
+          <button type="button" onClick={() => goToSection('recetas')} className="font-medium hover:text-primary transition-colors bg-transparent">Preguntas</button>
+          <button type="button" onClick={() => goToSection('contacto')} className="font-medium hover:text-primary transition-colors bg-transparent">Contacto</button>
         </nav>
 
         <div className="flex items-center space-x-4">
@@ -75,11 +88,11 @@ const Header = ({ cartItemCount, onCartClick, whatsappLink, onClearCart, hasItem
       {isMenuOpen && (
         <div className="md:hidden mt-4 py-4 px-6 bg-white border-t">
           <div className="flex flex-col space-y-4">
-            <a href="#inicio" className="font-medium hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>Inicio</a>
-            <a href="#empresa" className="font-medium hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>Empresa</a>
-            <a href="#catalogo" className="font-medium hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>Catálogo</a>
-            <a href="#recetas" className="font-medium hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>Recetas</a>
-            <a href="#contacto" className="font-medium hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>Contacto</a>
+            <button type="button" onClick={() => { goToSection('inicio'); setIsMenuOpen(false); }} className="font-medium hover:text-primary transition-colors bg-transparent">Inicio</button>
+            <button type="button" onClick={() => { goToSection('empresa'); setIsMenuOpen(false); }} className="font-medium hover:text-primary transition-colors bg-transparent">Empresa</button>
+            <button type="button" onClick={() => { goToSection('catalogo'); setIsMenuOpen(false); }} className="font-medium hover:text-primary transition-colors bg-transparent">Catálogo</button>
+            <button type="button" onClick={() => { goToSection('recetas'); setIsMenuOpen(false); }} className="font-medium hover:text-primary transition-colors bg-transparent">Recetas</button>
+            <button type="button" onClick={() => { goToSection('contacto'); setIsMenuOpen(false); }} className="font-medium hover:text-primary transition-colors bg-transparent">Contacto</button>
             <a
               href={whatsappLink}
               target="_blank"

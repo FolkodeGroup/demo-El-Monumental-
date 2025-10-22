@@ -27,7 +27,7 @@ const Catalogo = ({ addToCart }: CatalogoProps) => {
   };
 
   return (
-    <section id="catalogo" className="py-16 bg-background">
+    <section id="catalogo" className="py-16 bg-[#fbeaea]"> {/* rojo suave */}
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif tracking-wide">Nuestro Catálogo</h2>

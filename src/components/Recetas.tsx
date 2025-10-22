@@ -1,7 +1,6 @@
-
 const Recetas = () => {
   return (
-    <section id="recetas" className="py-16 bg-white">
+    <section id="recetas" className="py-16 bg-[#f7d6d6]"> {/* rojo claro */}
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif tracking-wide">Preguntas Frecuentes</h2>
@@ -19,8 +18,6 @@ const Recetas = () => {
         <p>3- ¿Hasta qué hora puedo realizar un pedido?</p>
         <p>Los pedidos se pueden hacer las 24hs, los 365 días del año! Si querés recibir o retirar tu pedido en el día, deberás hacerlo antes de las 19 hs si lo necesitás en el día.</p>
       </div>
-
-
     </section>
   );
 };
